@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
+using ChallongeStats.Properties;
 
 namespace ChallongeStats {
     public partial class Principal : Form {
@@ -32,6 +30,7 @@ namespace ChallongeStats {
 
         //config
         private readonly string CONFIG_FILE_NAME = "config.ini";
+        private readonly string LANGUAGE_VARNAME = "LANGUAGE";
         private readonly string GENERATED_IMGS_NUM_VARNAME = "GENERATED_IMGS_NUM";
         private readonly string API_KEY_VARNAME = "API_KEY";
         private readonly string LAST_CHALLONGE_ID_VARNAME = "LAST_CHALLONGE_ID";
@@ -51,6 +50,8 @@ namespace ChallongeStats {
                 string[] config = File.ReadAllLines(CONFIG_FILE_NAME);
                 foreach (string line in config) {
                     string[] parts = line.Split('=');
+                    if (parts[0].ToUpper().Trim().Equals(LANGUAGE_VARNAME))
+                        SetLanguage(parts[1].Trim());
                     if (parts[0].ToUpper().Trim().Equals(API_KEY_VARNAME))
                         txtApiKey.Text = parts[1].Trim();
                     if (parts[0].ToUpper().Trim().Equals(LAST_CHALLONGE_ID_VARNAME))
@@ -66,17 +67,19 @@ namespace ChallongeStats {
                 }
             } catch (FileNotFoundException) {
                 File.WriteAllText(CONFIG_FILE_NAME,
+                    LANGUAGE_VARNAME + "=es\n" +
                     API_KEY_VARNAME + "=\n" +
                     LAST_CHALLONGE_ID_VARNAME + "=\n" +
                     LAST_OUTPUT_DIR_VARNAME + "=\n" +
                     GENERATED_IMGS_NUM_VARNAME + "=" + generatedImgsNum + "\n" +
                     READ_P1_NAME_FROM_VARNAME + "=\n" + 
                     READ_P2_NAME_FROM_VARNAME + "=\n");
-                lblEstado.Text = "Generado fichero " + CONFIG_FILE_NAME + " vacío";
+                lblEstado.Text = String.Format(Resources.ConfigGenerated, CONFIG_FILE_NAME);
             } catch (Exception ex) {
-                lblEstado.Text = "Error al leer archivo de configuración: " + ex.Message;
-                MessageBox.Show(ex.Message, "Error al leer archivo de configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblEstado.Text = Resources.ConfigReadError + ": " + ex.Message;
+                MessageBox.Show(ex.Message, Resources.ConfigReadError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            lblEstado.Text = Resources.AuthorVersion;
         }
 
         private void BtnGuardarEn_Click(object sender, EventArgs e) {
@@ -94,6 +97,38 @@ namespace ChallongeStats {
             txtJug2.Text = aux;
         }
 
+        private void cbEsp_Click(object sender, EventArgs e) {
+            SetLanguage("es");
+        }
+
+        private void cbEng_Click(object sender, EventArgs e) {
+            SetLanguage("en");
+        }
+
+        private void SetLanguage(string lang) {
+            if (lang == "es") {
+                cbEsp.Checked = true;
+                cbEng.Checked = false;
+            } else { //if (lang == "en") {
+                cbEng.Checked = true;
+                cbEsp.Checked = false;
+            }
+
+            Resources.Culture = new System.Globalization.CultureInfo(lang);
+            
+            Text = Resources.AppName;
+            labelApiKey.Text = Resources.ApiKey;
+            labelId.Text = Resources.ChallongeID;
+            labelGuardarEn.Text = Resources.SaveAt;
+            btnGuardarEn.Text = Resources.Select;
+            labelJug1.Text = Resources.Player1Name;
+            labelJug2.Text = Resources.Player2Name;
+            cbDoStats.Text = Resources.TournamentStats;
+            cbDoPlayerData.Text = Resources.PlayerData;
+            btnGenerar.Text = Resources.Generate;
+
+            SaveConfigFile();
+        }
 
         bool alreadyFocused1 = false, alreadyFocused2 = false;
 
@@ -146,6 +181,11 @@ namespace ChallongeStats {
             }
         }
 
+        private void llGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/easanles/ChallongeStats");
+            Process.Start(sInfo);
+        }
+
         private void Start() {
             SaveConfigFile();
             GenerateTexts();
@@ -155,6 +195,7 @@ namespace ChallongeStats {
         private void SaveConfigFile() {
             try {
                 File.WriteAllText(CONFIG_FILE_NAME,
+                            LANGUAGE_VARNAME + "=" + (cbEsp.Checked ? "es" : "en") + "\n" +
                             API_KEY_VARNAME + "=" + txtApiKey.Text.Trim() + "\n" +
                             LAST_CHALLONGE_ID_VARNAME + "=" + txtId.Text.Trim() + "\n" +
                             LAST_OUTPUT_DIR_VARNAME + "=" + txtGuardarEn.Text.Trim() + "\n" +
@@ -162,8 +203,8 @@ namespace ChallongeStats {
                             READ_P1_NAME_FROM_VARNAME + "=" + readP1NameFrom + "\n" +
                             READ_P2_NAME_FROM_VARNAME + "=" + readP2NameFrom + "\n");
             } catch (Exception ex) {
-                lblEstado.Text = "Error al guardar archivo de configuración: " + ex.Message;
-                MessageBox.Show(ex.Message, "Error al guardar archivo de configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblEstado.Text = Resources.ConfigSaveError + ": " + ex.Message;
+                MessageBox.Show(ex.Message, Resources.ConfigSaveError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -171,21 +212,21 @@ namespace ChallongeStats {
             if (cbDoStats.Checked == false)
                 return;
             if (string.IsNullOrEmpty(txtId.Text)) {
-                lblEstado.Text = "El campo \"Identificador\" está vacío.";
+                lblEstado.Text = Resources.EmptyIDField;
                 return;
             }
             if (string.IsNullOrEmpty(txtGuardarEn.Text)) {
-                lblEstado.Text = "El campo \"Guardar en\" está vacío.";
+                lblEstado.Text = Resources.EmptySaveAtField;
                 return;
             }
             try {
                 Path.GetFullPath(txtGuardarEn.Text);
             } catch (Exception ex) {
-                lblEstado.Text = "La ruta de \"Guardar en\" no es válida: " + ex.GetType().ToString();
+                lblEstado.Text = Resources.NonValidPath + ex.GetType().ToString();
                 return;
             };
 
-            lblEstado.Text = "Obteniendo listado de participantes.";
+            lblEstado.Text = Resources.FetchingPlayerList;
             long p1Id = -1, p2Id = -1;
             List<long> p1GroupIds = new List<long>(), p2GroupIds = new List<long>();
             List<Participant> participantes = new List<Participant>();
@@ -195,7 +236,7 @@ namespace ChallongeStats {
             try {
                 participantes = await ChallongeService.GetListado(txtApiKey.Text, txtId.Text);
                 if (participantes == null) {
-                    lblEstado.Text = "No se han obtenido participantes. Revisa el id.";
+                    lblEstado.Text = Resources.PlayersNotReceived;
                     return;
                 }
 
@@ -224,12 +265,12 @@ namespace ChallongeStats {
                     }
                 }
             } catch (Exception ex) {
-                lblEstado.Text = "Error al obtener participantes: " + ex.Message;
-                MessageBox.Show(ex.Message, "Error al obtener participantes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblEstado.Text = Resources.ErrorFetchingPlayers + " " + ex.Message;
+                MessageBox.Show(ex.Message, Resources.ErrorFetchingPlayers, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            lblEstado.Text = "Obteniendo partidas.";
+            lblEstado.Text = Resources.FetchingGames;
             List<Match> partidasJug1 = null;
             List<Match> partidasJug2 = null;
             try {
@@ -238,12 +279,12 @@ namespace ChallongeStats {
                 if (p2Id != -1)
                     partidasJug2 = await ChallongeService.GetPartidas(txtApiKey.Text, txtId.Text, p2Id);
             } catch (Exception ex) {
-                lblEstado.Text = "Error al obtener partidas: " + ex.Message;
-                MessageBox.Show(ex.Message, "Error al obtener partidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblEstado.Text = Resources.ErrorFetchingGames + ": " + ex.Message;
+                MessageBox.Show(ex.Message, Resources.ErrorFetchingGames, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            lblEstado.Text = "Contando puntos.";
+            lblEstado.Text = Resources.CountingPoints;
             int countPartidasJug1 = 0, countVictoriasJug1 = 0, countDerrotasJug1 = 0;
             int countPartidasJug2 = 0, countVictoriasJug2 = 0, countDerrotasJug2 = 0;
             long? jug1UltimaVictoria = null, jug2UltimaVictoria = null;
@@ -365,12 +406,12 @@ namespace ChallongeStats {
                     }
                 }
             } catch (Exception ex) {
-                lblEstado.Text = "Error al parsear las puntuaciones: " + ex.Message;
-                MessageBox.Show(ex.Message, "Error al parsear las puntuaciones", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblEstado.Text = Resources.ErrorParsingScores + ": " + ex.Message;
+                MessageBox.Show(ex.Message, Resources.ErrorParsingScores, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            lblEstado.Text = "Generando archivos de texto.";
+            lblEstado.Text = Resources.GeneratingTextFiles;
             string ruta = txtGuardarEn.Text;
             if (string.IsNullOrEmpty(ruta) || (ruta.Last() != '\\')) {
                 ruta = ruta + '\\';
@@ -398,36 +439,36 @@ namespace ChallongeStats {
 
                 if (jug1UltimaPartidaGrupos != null) {
                     string jug1NombreRival = participantes.Find(p => p.Id == jug1UltimaPartidaGrupos).DisplayName;
-                    File.WriteAllText(ruta + JUG1_LOSERS_BY_FILENAME, string.Format("Último enfrentamiento VS:  {0}  ( {1} )", jug1NombreRival, jug1ResultadoMostrado));
+                    File.WriteAllText(ruta + JUG1_LOSERS_BY_FILENAME, string.Format(Resources.OutputLastMatch, jug1NombreRival, jug1ResultadoMostrado));
                 } else if (jug1PerdioContra != null) {
                     string jug1NombreRival = participantes.Find(p => p.Id == jug1PerdioContra).DisplayName;
-                    File.WriteAllText(ruta + JUG1_LOSERS_BY_FILENAME, string.Format("En Losers Bracket por:  {0}  ( {1} )", jug1NombreRival, jug1ResultadoMostrado));
+                    File.WriteAllText(ruta + JUG1_LOSERS_BY_FILENAME, string.Format(Resources.OutputLosersBy, jug1NombreRival, jug1ResultadoMostrado));
                 } else if (jug1UltimaVictoria != null) {
                     string jug1NombreRival = participantes.Find(p => p.Id == jug1UltimaVictoria).DisplayName;
-                    File.WriteAllText(ruta + JUG1_LOSERS_BY_FILENAME, string.Format("Última victoria VS:  {0}  ( {1} )", jug1NombreRival, jug1ResultadoMostrado));
+                    File.WriteAllText(ruta + JUG1_LOSERS_BY_FILENAME, string.Format(Resources.OutputLastVictory, jug1NombreRival, jug1ResultadoMostrado));
                 } else {
-                    File.WriteAllText(ruta + JUG1_LOSERS_BY_FILENAME, "Primera participación");
+                    File.WriteAllText(ruta + JUG1_LOSERS_BY_FILENAME, Resources.OutputFirstMatch);
                 }
 
                 if (jug2UltimaPartidaGrupos != null) {
                     string jug2NombreRival = participantes.Find(p => p.Id == jug2UltimaPartidaGrupos).DisplayName;
-                    File.WriteAllText(ruta + JUG2_LOSERS_BY_FILENAME, string.Format("Último enfrentamiento VS:  {0}  ( {1} )", jug2NombreRival, jug2ResultadoMostrado));
+                    File.WriteAllText(ruta + JUG2_LOSERS_BY_FILENAME, string.Format(Resources.OutputLastMatch, jug2NombreRival, jug2ResultadoMostrado));
                 } else if (jug2PerdioContra != null) {
                     string jug2NombreRival = participantes.Find(p => p.Id == jug2PerdioContra).DisplayName;
-                    File.WriteAllText(ruta + JUG2_LOSERS_BY_FILENAME, string.Format("En Losers Bracket por:  {0}  ( {1} )", jug2NombreRival, jug2ResultadoMostrado));
+                    File.WriteAllText(ruta + JUG2_LOSERS_BY_FILENAME, string.Format(Resources.OutputLosersBy, jug2NombreRival, jug2ResultadoMostrado));
                 } else if (jug2UltimaVictoria != null) {
                     string jug2NombreRival = participantes.Find(p => p.Id == jug2UltimaVictoria).DisplayName;
-                    File.WriteAllText(ruta + JUG2_LOSERS_BY_FILENAME, string.Format("Última victoria VS:  {0}  ( {1} )", jug2NombreRival, jug2ResultadoMostrado));
+                    File.WriteAllText(ruta + JUG2_LOSERS_BY_FILENAME, string.Format(Resources.OutputLastVictory, jug2NombreRival, jug2ResultadoMostrado));
                 } else {
-                    File.WriteAllText(ruta + JUG2_LOSERS_BY_FILENAME, "Primera participación");
+                    File.WriteAllText(ruta + JUG2_LOSERS_BY_FILENAME, Resources.OutputFirstMatch);
                 }
             } catch (Exception ex) {
-                lblEstado.Text = "Error al guardar textos: " + ex.Message;
-                MessageBox.Show(ex.Message, "Error al guardar textos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblEstado.Text = Resources.ErrorSavingTexts + ": " + ex.Message;
+                MessageBox.Show(ex.Message, Resources.ErrorSavingTexts, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            lblEstado.Text = "Hecho.";
+            lblEstado.Text = Resources.Done;
         }
 
         private void GeneratePlayerData() {
@@ -548,18 +589,23 @@ namespace ChallongeStats {
 
                 //lblEstado.Text = "Hecho.";
             } catch (FileNotFoundException) {
-                File.WriteAllText(PLAYER_DATA_FILENAME, @";FORMATO DE ESTE ARCHIVO
-;
+                File.WriteAllText(PLAYER_DATA_FILENAME, @";ESPAÑOL - FORMATO DE ESTE ARCHIVO
 ;Comenzar una linea con @: indicar nombre de jugador, no sensible a minusculas/mayusculas
 ;Comenzar una linea con |: indicar una imagen del jugador dentro de la ruta ./img/  La primera imagen se guarda en p*_img1.png, la segunda en p*_img2.png, ...
 ;Comenzar una linea con ;: indicar un comentario, se ignora la linea
 ;Cualquier otra linea debajo de un nombre de jugador: el texto asociado al jugador. Se guardará en p*_text.txt
 ;
+;ENGLISH - FORMAT OF THIS FILE
+;Start a line with @: specify player name, not case sensitive
+;Start a line with |: specify image file inside path ./img/  First image will be saved as p*_img1.png, the second one as p*_img2.png, ...
+;Start a line with ;: specify a comment, line is ignored
+;Any other line below a player name: the text asociated to the player. It will be saved at p*_text.txt
+;
 ");
                 //lblEstado.Text = "Generado fichero " + PLAYER_DATA_FILENAME + " vacío";
             } catch (Exception ex) {
-                lblEstado.Text = "Error al obtener datos del jugador: " + ex.Message;
-                MessageBox.Show(ex.Message, "Error al obtener datos del jugador", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblEstado.Text = Resources.PlayerDataReadError + ": " + ex.Message;
+                MessageBox.Show(ex.Message, Resources.PlayerDataReadError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

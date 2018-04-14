@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApiKey" xml:space="preserve">
-    <value>API Key (Don't show)</value>
+    <value>Clave API (No mostrar)</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>Challonge Stats</value>
+    <value>Estadísticas de Challonge</value>
   </data>
   <data name="ChallongeID" xml:space="preserve">
-    <value>Challonge ID</value>
+    <value>Identificador Challonge</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="eng" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -134,90 +134,90 @@
     <value>..\resources\esp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Generate" xml:space="preserve">
-    <value>Generate</value>
+    <value>Generar</value>
   </data>
   <data name="Player1Name" xml:space="preserve">
-    <value>Player 1 Name</value>
+    <value>Nombre Jugador 1</value>
   </data>
   <data name="Player2Name" xml:space="preserve">
-    <value>Player 2 Name</value>
+    <value>Nombre Jugador 2</value>
   </data>
   <data name="PlayerData" xml:space="preserve">
-    <value>Player data</value>
+    <value>Datos del jugador</value>
   </data>
   <data name="SaveAt" xml:space="preserve">
-    <value>Save at</value>
+    <value>Guardar en</value>
   </data>
   <data name="Select" xml:space="preserve">
-    <value>Select</value>
+    <value>Seleccionar</value>
   </data>
   <data name="TournamentStats" xml:space="preserve">
-    <value>Tournament stats</value>
+    <value>Estadísticas torneo</value>
   </data>
   <data name="AuthorVersion" xml:space="preserve">
-    <value>Easanles 2018 - Version 1.1</value>
+    <value>Easanles 2018 - Versión 1.1</value>
   </data>
   <data name="ConfigGenerated" xml:space="preserve">
-    <value>Empty {0} file generated</value>
+    <value>Generado fichero {0} vacío</value>
   </data>
   <data name="ConfigReadError" xml:space="preserve">
-    <value>Error while reading config file</value>
+    <value>Error al leer archivo de configuración</value>
   </data>
   <data name="ConfigSaveError" xml:space="preserve">
-    <value>Error while saving config file</value>
+    <value>Error al guardar archivo de configuración</value>
   </data>
   <data name="CountingPoints" xml:space="preserve">
-    <value>Counting points.</value>
+    <value>Contando puntos.</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>Done.</value>
+    <value>Hecho.</value>
   </data>
   <data name="EmptyIDField" xml:space="preserve">
-    <value>ID field is empty.</value>
+    <value>El campo "Identificador" está vacío.</value>
   </data>
   <data name="EmptySaveAtField" xml:space="preserve">
-    <value>"Save at" field is empty.</value>
+    <value>El campo "Guardar en" está vacío.</value>
   </data>
   <data name="ErrorFetchingGames" xml:space="preserve">
-    <value>Error while fetching games</value>
+    <value>Error al obtener partidas</value>
   </data>
   <data name="ErrorFetchingPlayers" xml:space="preserve">
-    <value>Error while fetching players</value>
+    <value>Error al obtener participantes</value>
   </data>
   <data name="ErrorParsingScores" xml:space="preserve">
-    <value>Error while parsing scores</value>
+    <value>Error al parsear las puntuaciones</value>
   </data>
   <data name="ErrorSavingTexts" xml:space="preserve">
-    <value>Error while saving text files</value>
+    <value>Error al guardar textos</value>
   </data>
   <data name="FetchingGames" xml:space="preserve">
-    <value>Fetching games.</value>
+    <value>Obteniendo partidas.</value>
   </data>
   <data name="FetchingPlayerList" xml:space="preserve">
-    <value>Fetching list of players.</value>
+    <value>Obteniendo listado de participantes.</value>
   </data>
   <data name="GeneratingTextFiles" xml:space="preserve">
-    <value>Generating text files.</value>
+    <value>Generando archivos de texto.</value>
   </data>
   <data name="NonValidPath" xml:space="preserve">
-    <value>"Save at" path is not valid: </value>
+    <value>La ruta de "Guardar en" no es válida: </value>
   </data>
   <data name="OutputFirstMatch" xml:space="preserve">
-    <value>First match</value>
+    <value>Primera participación</value>
   </data>
   <data name="OutputLastMatch" xml:space="preserve">
-    <value>Last match VS:  {0}  ( {1} )</value>
+    <value>Último enfrentamiento VS:  {0}  ( {1} )</value>
   </data>
   <data name="OutputLastVictory" xml:space="preserve">
-    <value>Last victory VS:  {0}  ( {1} )</value>
+    <value>Última victoria VS:  {0}  ( {1} )</value>
   </data>
   <data name="OutputLosersBy" xml:space="preserve">
-    <value>In Losers Bracket by:  {0}  ( {1} )</value>
+    <value>En Losers Bracket por:  {0}  ( {1} )</value>
   </data>
   <data name="PlayerDataReadError" xml:space="preserve">
-    <value>Error while reading player data</value>
+    <value>Error al obtener datos del jugador</value>
   </data>
   <data name="PlayersNotReceived" xml:space="preserve">
-    <value>Didn't obtain any player. Check the ID.</value>
+    <value>No se han obtenido participantes. Revisa el id.</value>
   </data>
 </root>

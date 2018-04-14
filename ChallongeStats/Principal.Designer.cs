@@ -23,6 +23,7 @@
         /// el contenido de este método con el editor de código.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.btnGenerar = new System.Windows.Forms.Button();
             this.labelId = new System.Windows.Forms.Label();
             this.txtId = new System.Windows.Forms.TextBox();
@@ -37,10 +38,14 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnSwapNames = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelApiKey = new System.Windows.Forms.Label();
             this.txtApiKey = new System.Windows.Forms.TextBox();
             this.cbDoStats = new System.Windows.Forms.CheckBox();
             this.cbDoPlayerData = new System.Windows.Forms.CheckBox();
+            this.cbEsp = new System.Windows.Forms.CheckBox();
+            this.cbEng = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.llGithub = new System.Windows.Forms.LinkLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -168,7 +173,7 @@
             // 
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(186, 22);
-            this.lblEstado.Text = "Easanles 2018 - Versión 1.0";
+            this.lblEstado.Text = "Easanles 2018 - Versión 1.1";
             // 
             // btnSwapNames
             // 
@@ -180,20 +185,20 @@
             this.btnSwapNames.UseVisualStyleBackColor = true;
             this.btnSwapNames.Click += new System.EventHandler(this.BtnSwapNames_Click);
             // 
-            // label1
+            // labelApiKey
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(152, 17);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Clave API (No mostrar)";
+            this.labelApiKey.AutoSize = true;
+            this.labelApiKey.Location = new System.Drawing.Point(23, 13);
+            this.labelApiKey.Name = "labelApiKey";
+            this.labelApiKey.Size = new System.Drawing.Size(152, 17);
+            this.labelApiKey.TabIndex = 12;
+            this.labelApiKey.Text = "Clave API (No mostrar)";
             // 
             // txtApiKey
             // 
             this.txtApiKey.Location = new System.Drawing.Point(181, 13);
             this.txtApiKey.Name = "txtApiKey";
-            this.txtApiKey.Size = new System.Drawing.Size(227, 22);
+            this.txtApiKey.Size = new System.Drawing.Size(102, 22);
             this.txtApiKey.TabIndex = 1;
             this.txtApiKey.UseSystemPasswordChar = true;
             // 
@@ -221,15 +226,66 @@
             this.cbDoPlayerData.Text = "Datos del jugador";
             this.cbDoPlayerData.UseVisualStyleBackColor = true;
             // 
+            // cbEsp
+            // 
+            this.cbEsp.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbEsp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cbEsp.BackgroundImage")));
+            this.cbEsp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cbEsp.Checked = true;
+            this.cbEsp.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbEsp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbEsp.Location = new System.Drawing.Point(290, 12);
+            this.cbEsp.Name = "cbEsp";
+            this.cbEsp.Size = new System.Drawing.Size(28, 23);
+            this.cbEsp.TabIndex = 13;
+            this.cbEsp.UseVisualStyleBackColor = true;
+            this.cbEsp.Click += new System.EventHandler(this.cbEsp_Click);
+            // 
+            // cbEng
+            // 
+            this.cbEng.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbEng.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cbEng.BackgroundImage")));
+            this.cbEng.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cbEng.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbEng.Location = new System.Drawing.Point(324, 12);
+            this.cbEng.Name = "cbEng";
+            this.cbEng.Size = new System.Drawing.Size(28, 23);
+            this.cbEng.TabIndex = 14;
+            this.cbEng.UseVisualStyleBackColor = true;
+            this.cbEng.Click += new System.EventHandler(this.cbEng_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(152, 17);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Clave API (No mostrar)";
+            // 
+            // llGithub
+            // 
+            this.llGithub.AutoSize = true;
+            this.llGithub.Location = new System.Drawing.Point(358, 12);
+            this.llGithub.Name = "llGithub";
+            this.llGithub.Size = new System.Drawing.Size(50, 17);
+            this.llGithub.TabIndex = 15;
+            this.llGithub.TabStop = true;
+            this.llGithub.Text = "Github";
+            this.llGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llGithub_LinkClicked);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 285);
+            this.Controls.Add(this.llGithub);
+            this.Controls.Add(this.cbEng);
+            this.Controls.Add(this.cbEsp);
             this.Controls.Add(this.cbDoPlayerData);
             this.Controls.Add(this.cbDoStats);
             this.Controls.Add(this.txtApiKey);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelApiKey);
             this.Controls.Add(this.btnSwapNames);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.labelJug2);
@@ -243,6 +299,7 @@
             this.Controls.Add(this.labelId);
             this.Controls.Add(this.btnGenerar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Principal";
@@ -271,10 +328,14 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblEstado;
         private System.Windows.Forms.Button btnSwapNames;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelApiKey;
         private System.Windows.Forms.TextBox txtApiKey;
         private System.Windows.Forms.CheckBox cbDoStats;
         private System.Windows.Forms.CheckBox cbDoPlayerData;
+        private System.Windows.Forms.CheckBox cbEsp;
+        private System.Windows.Forms.CheckBox cbEng;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel llGithub;
     }
 }
 
