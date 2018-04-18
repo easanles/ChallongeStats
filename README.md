@@ -62,7 +62,7 @@ The app creates a **config.ini** file which saves the following parameters:
 - **LAST_OUTPUT_DIR**: Last output folder path used.
 - **GENERATED_IMGS_NUM**: Number of image files to support. Writing `|` in playerdata.txt empties the corresponding image, but to not having to write several empty lines, this parameter can be used to specify how many image files are we going to use.
   - Example: We are going to have three images in OBS Studio to show to the spectator the most used characters of a player, then we set this parameter as `3`. If a player only uses one character, it isn't necessary to write two empty lines with `|`, just write that character image and the app automatically empties the other two images.
-- **READ_P1_NAME_FROM_DIR** y **READ_P2_NAME_FROM_DIR**: Alternate way to specify player names. This parameters can be used to indicate the path to a text file which contains the corresponding player name. These path are used when the player name field is empty.
+- **READ_P1_NAME_FROM_DIR** and **READ_P2_NAME_FROM_DIR**: Alternate way to specify player names. This parameters can be used to indicate the path to a text file which contains the corresponding player name. These path are used when the player name field is empty.
 
 ### To consider
 
