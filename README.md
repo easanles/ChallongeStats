@@ -1,7 +1,5 @@
 # ChallongeStats
-An app to obtain player data from Challonge to use it on OBS Studio.
-
-Una aplicación para obtener datos de jugadores en Challonge para su uso en OBS Studio
+An app to obtain player data from Challonge to use it on OBS Studio. / Una aplicación para obtener datos de jugadores en Challonge para su uso en OBS Studio.
 
 ## English
 
@@ -142,6 +140,6 @@ La aplicación crea un archivo **config.ini** para guardar los siguientes parám
 - Si un jugador abandona en mitad del torneo, es recomendable indicarlo dentro de Challonge con un resultado de 0-0 y eligiendo al ganador sin más, para no acumular partidas que el ganador realmente no ha jugado.
 - La app no es compatible con partidas con multiples sets. (La opción de Challonge para indicar varias puntuaciones dentro de un mismo enfrentamiento).
 
-## LICENCIA / LICENCE
+## LICENSE / LICENCIA
 
-Ver archivo LICENSE / See LICENSE file
+See LICENSE file / Ver archivo LICENSE
