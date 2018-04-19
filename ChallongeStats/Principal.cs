@@ -83,6 +83,7 @@ namespace ChallongeStats {
         }
 
         private void BtnGuardarEn_Click(object sender, EventArgs e) {
+            folderBrowserDialog.Description = Resources.TextFileDestinyFolder;
             folderBrowserDialog.ShowDialog();
             txtGuardarEn.Text = folderBrowserDialog.SelectedPath;
         }
@@ -474,6 +475,18 @@ namespace ChallongeStats {
         private void GeneratePlayerData() {
             if (cbDoPlayerData.Checked == false)
                 return;
+
+            if (string.IsNullOrEmpty(txtGuardarEn.Text)) {
+                lblEstado.Text = Resources.EmptySaveAtField;
+                return;
+            }
+            try {
+                Path.GetFullPath(txtGuardarEn.Text);
+            } catch (Exception ex) {
+                lblEstado.Text = Resources.NonValidPath + ex.GetType().ToString();
+                return;
+            };
+
             string p1name = txtJug1.Text.ToLower().Trim();
             string p2name = txtJug2.Text.ToLower().Trim();
             bool lookingAtP1 = false;

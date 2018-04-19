@@ -360,6 +360,15 @@ namespace ChallongeStats.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Text file destiny folder.
+        /// </summary>
+        internal static string TextFileDestinyFolder {
+            get {
+                return ResourceManager.GetString("TextFileDestinyFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Tournament stats.
         /// </summary>
         internal static string TournamentStats {

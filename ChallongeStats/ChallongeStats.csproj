@@ -54,7 +54,8 @@
     <ManifestCertificateThumbprint>57AA28CE2D11637D353EAD10881925627054406E</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ChallongeStats_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -129,7 +130,6 @@
     </EmbeddedResource>
     <None Include="ChallongeStats_TemporaryKey.pfx" />
     <None Include="easanles-nopass.snk" />
-    <None Include="firma_easanles.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

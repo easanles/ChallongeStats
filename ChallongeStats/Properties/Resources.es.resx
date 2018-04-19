@@ -220,4 +220,7 @@
   <data name="PlayersNotReceived" xml:space="preserve">
     <value>No se han obtenido participantes. Revisa el id.</value>
   </data>
+  <data name="TextFileDestinyFolder" xml:space="preserve">
+    <value>Destino de ficheros de texto</value>
+  </data>
 </root>

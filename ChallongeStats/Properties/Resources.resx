@@ -220,4 +220,7 @@
   <data name="PlayersNotReceived" xml:space="preserve">
     <value>Didn't obtain any player. Check the ID.</value>
   </data>
+  <data name="TextFileDestinyFolder" xml:space="preserve">
+    <value>Text file destiny folder</value>
+  </data>
 </root>
