@@ -1,6 +1,8 @@
 # ChallongeStats
 An app to obtain player data from Challonge to use it on OBS Studio. / Una aplicación para obtener datos de jugadores en Challonge para su uso en OBS Studio.
 
+[Download latest version / Descargar última versión](https://github.com/easanles/ChallongeStats/releases/download/1.1/ChallongeStats_1.1.zip)
+
 ## English
 
 ### Description
@@ -34,7 +36,7 @@ Exported files can be used in OBS Studio to show to the spectators information a
 
 ### Player data
 
-1. If it wasn't previously created, when the app is opened it creates a text file named **playerdata.txt**. This file will contain information about every player. The format is as follows:
+1. To use this feature, create a text file named **playerdata.txt** in the executable folder. This file will contain information about every player. The format is as follows:
  - Start a line with `@`: specify player name, not case sensitive.
  - Start a line with `|`: specify image file inside path **./img/**  First image will be saved as **p\*_img1.png**, the second one as **p\*_img2.png**, ...
    - If it is left blank, it will generate an empty image. Write just `|`.
@@ -104,7 +106,7 @@ Los archivos exportados se pueden usar en conjunto con OBS Studio para mostrar a
 
 ### Datos del jugador
 
-1. Si no estaba creado anteriormente, al abrir la app se genera un archivo de texto llamado **playerdata.txt**. En este archivo irá la información de todos los jugadores. El formato es el siguiente:
+1. Para usar esta función, crea un archivo de texto llamado **playerdata.txt** en la carpeta del programa. En este archivo irá la información de todos los jugadores. El formato es el siguiente:
  - Comenzar una linea con `@`: indicar nombre de jugador, no sensible a minusculas/mayusculas.
  - Comenzar una linea con `|`: indicar una imagen del jugador dentro de la ruta **./img/**.  La primera imagen se guarda en **p\*_img1.png**, la segunda en **p\*_img2.png**, ...
    - Si se deja vacío limpiará la imagen (imagen vacía). Escribir solo `|`.
